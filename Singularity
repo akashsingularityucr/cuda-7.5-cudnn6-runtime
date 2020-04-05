@@ -9,6 +9,10 @@ From: nvidia/cuda:8.0-cudnn7-runtime-ubuntu16.04
     apt-get update
     apt-get upgrade -y
      
+    mount -t proc proc /rootfs/proc/
+    mount -t sysfs sys /rootfs/sys/
+    mount -o bind /dev /rootfs/dev/
+
     apt-get install -y eatmydata
     eatmydata apt-get install -y wget bzip2 \
       ca-certificates libglib2.0-0 libxext6 libsm6 libxrender1 \
