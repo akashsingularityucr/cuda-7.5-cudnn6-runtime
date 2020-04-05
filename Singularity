@@ -7,10 +7,10 @@ From: nvidia/cuda:8.0-cudnn7-runtime-ubuntu16.04
 %post
     apt-get update
     apt-get upgrade -y
-    wget http://security.ubuntu.com/ubuntu/pool/main/a/apt/apt_1.0.1ubuntu2.17_amd64.deb -O apt.deb
-    dpkg -i apt.deb
+    #wget http://security.ubuntu.com/ubuntu/pool/main/a/apt/apt_1.0.1ubuntu2.17_amd64.deb -O apt.deb
+    #dpkg -i apt.deb
     # install debian packages
-    apt-get update
+    #apt-get update
     apt-get install -y eatmydata
     eatmydata apt-get install -y wget bzip2 \
       ca-certificates libglib2.0-0 libxext6 libsm6 libxrender1 \
