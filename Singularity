@@ -4,6 +4,7 @@ From: nvidia/cuda:8.0-cudnn7-runtime-ubuntu16.04
 # this command assumes singularity 2.3
 %environment
     PATH="/usr/local/anaconda/bin:$PATH"
+    CUDNN_VERSION=7.2.1.38
 %post
     apt-get update
     apt-get upgrade -y
@@ -16,14 +17,16 @@ From: nvidia/cuda:8.0-cudnn7-runtime-ubuntu16.04
     apt-get clean
     pip install --upgrade pip
     
-     # download and run NIH HPC NVIDIA driver installer
-    wget https://raw.githubusercontent.com/NIH-HPC/gpu4singularity/master/gpu4singularity
-    chmod u+rwx gpu4singularity
-    export VERSION=375.66
-    ./gpu4singularity --verbose \
-        -u http://us.download.nvidia.com/XFree86/Linux-x86_64/"${VERSION}"/NVIDIA-Linux-x86_64-"${VERSION}".run \
-        -V "${VERSION}"
-    rm gpu4singularity
+    echo "deb https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64 /" > /etc/apt/sources.list.d/nvidia-ml.list
+
+
+    com.nvidia.cudnn.version="${CUDNN_VERSION}"
+    apt-get update && apt-get install -y --no-install-recommends \
+            libcudnn7=$CUDNN_VERSION-1+cuda8.0 \
+            libcudnn7-dev=$CUDNN_VERSION-1+cuda8.0 && \
+    apt-mark hold libcudnn7 && \
+    rm -rf /var/lib/apt/lists/*
+
 
     # install anaconda
     if [ ! -d /usr/local/anaconda ]; then
