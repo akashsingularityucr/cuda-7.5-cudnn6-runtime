@@ -31,6 +31,12 @@ From: nvidia/cuda:8.0-cudnn7-runtime-ubuntu16.04
     # install the bare minimum
     conda install\
       numpy scipy
+    conda install torchvision
+    conda install -c anaconda pillow
+    conda install -c pytorch pytorch=0.4.1 cuda80
+    
+
+    
     conda clean --tarballs
 
     # OpenCV from pip, including contrib.  This makes the install MUCH faster.
