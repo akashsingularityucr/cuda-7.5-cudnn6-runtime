@@ -7,16 +7,7 @@ From: nvidia/cuda:8.0-cudnn7-runtime-ubuntu16.04
 %post
     apt-get update
     apt-get upgrade -y
-    
-    # download and run NIH HPC NVIDIA driver installer
-    wget https://raw.githubusercontent.com/NIH-HPC/gpu4singularity/master/gpu4singularity
-    chmod u+rwx gpu4singularity
-    export VERSION=375.66
-    ./gpu4singularity --verbose \
-        -u http://us.download.nvidia.com/XFree86/Linux-x86_64/"${VERSION}"/NVIDIA-Linux-x86_64-"${VERSION}".run \
-        -V "${VERSION}"
-    rm gpu4singularity
-    
+     
     apt-get install -y eatmydata
     eatmydata apt-get install -y wget bzip2 \
       ca-certificates libglib2.0-0 libxext6 libsm6 libxrender1 \
@@ -24,6 +15,15 @@ From: nvidia/cuda:8.0-cudnn7-runtime-ubuntu16.04
     #-standalone
     apt-get clean
     pip install --upgrade pip
+    
+     # download and run NIH HPC NVIDIA driver installer
+    wget https://raw.githubusercontent.com/NIH-HPC/gpu4singularity/master/gpu4singularity
+    chmod u+rwx gpu4singularity
+    export VERSION=375.66
+    ./gpu4singularity --verbose \
+        -u http://us.download.nvidia.com/XFree86/Linux-x86_64/"${VERSION}"/NVIDIA-Linux-x86_64-"${VERSION}".run \
+        -V "${VERSION}"
+    rm gpu4singularity
 
     # install anaconda
     if [ ! -d /usr/local/anaconda ]; then
