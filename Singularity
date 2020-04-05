@@ -28,6 +28,11 @@ From: nvidia/cuda:8.0-cudnn7-runtime-ubuntu16.04
       numpy scipy
     conda clean --tarballs
 
+    # OpenCV from pip, including contrib.  This makes the install MUCH faster.
+    # See https://pypi.python.org/pypi/opencv-contrib-python for capabilities 
+    # and limitations.  
+    pip install --no-cache-dir opencv-contrib-python
+    
     # make /data and /scripts so we can mount it to access external resources
     if [ ! -d /data ]; then mkdir /data; fi
     if [ ! -d /scripts ]; then mkdir /scripts; fi
